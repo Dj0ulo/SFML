@@ -232,7 +232,8 @@ Vector2i getTouchPosition(unsigned int finger)
     ActivityStates&       states = getActivity();
     const std::lock_guard lock(states.mutex);
 
-    return states.touchEvents.find(static_cast<int>(finger))->second;
+    auto touchEvent = states.touchEvents.find(static_cast<int>(finger));
+    return touchEvent != states.touchEvents.end() ? touchEvent->second : Vector2i();
 }
 
 
